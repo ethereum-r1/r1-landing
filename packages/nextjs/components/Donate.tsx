@@ -14,7 +14,7 @@ export const Donate = () => {
   const [amountError, setAmountError] = useState<string>("");
   const [txHash, setTxHash] = useState<string>("");
 
-  const DONATION_ADDRESS = "0xE73EaFBf9061f26Df4f09e08B53c459Df03E2b66";
+  const DONATION_ADDRESS = "0x5962564f5c89F84F9A344E11D2c70370E02e9fC1";
   const { address, isConnected } = useAccount();
   const { sendTransaction, isPending, isSuccess, isError, reset } = useSendTransaction({
     mutation: {
@@ -118,19 +118,19 @@ export const Donate = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0 px-8 font-mono"
+      className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0"
       style={{ lineHeight: "133%" }}
     >
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
-        <div className="w-[380px]">
-          <h1 className="text-black text-xs font-normal leading-none mb-4">Ethereum (R1) is powered by you.</h1>
-          <p className="text-black text-xs font-normal mb-6">
+        <div className="w-full pt-12 sm:w-[430px]">
+          <h1 className="text-black  font-normal leading-none mb-4">Ethereum (R1) is powered by you.</h1>
+          <p className="text-black  font-normal mb-6">
             Donate Below (or simply send ETH on ethereum mainnet to{" "}
-            <span className="font-mono text-[10px] font-bold">{DONATION_ADDRESS}</span>)
+            <span className="text-[10px] bg-gray-100 p-1">{DONATION_ADDRESS}</span>)
           </p>
           <div className="mb-6">
             <div className="mb-2">
-              <label htmlFor="donationAmount" className="block text-black text-xs mb-1">
+              <label htmlFor="donationAmount" className="block text-black  mb-1">
                 Donation Amount (ETH)
               </label>
               <div className="relative">
@@ -140,7 +140,7 @@ export const Donate = () => {
                   value={donationAmount}
                   onChange={handleAmountChange}
                   placeholder="0.00"
-                  className={`w-full p-2 text-xs font-mono bg-white border ${amountError ? "border-red-500" : "border-gray-300"} rounded-none focus:outline-none`}
+                  className={`w-full p-2  bg-white border ${amountError ? "border-red-500" : "border-gray-300"} rounded-none focus:outline-none`}
                 />
                 {amountError && <div className="text-red-500 text-[10px] mt-1">{amountError}</div>}
               </div>
@@ -154,14 +154,14 @@ export const Donate = () => {
                 <button
                   onClick={handleDonate}
                   disabled={!!amountError || !donationAmount || !isConnected || isPending}
-                  className="btn btn-primary btn-sm min-w-[180px]"
+                  className="btn btn-primary shadow-none btn-sm min-w-[180px]"
                 >
                   {isPending ? "Confirming..." : "Donate"}
                 </button>
               )}
-              {isPending && <div className="text-blue-500 text-xs mt-2">Tx pending...</div>}
+              {isPending && <div className="text-blue-500  mt-2">Tx pending...</div>}
               {isSuccess && (
-                <div className="text-green-500 text-xs mt-2">
+                <div className="text-green-500  mt-2">
                   Tx submitted! Thank you for your donation.{" "}
                   <a
                     href={`https://etherscan.io/tx/${txHash}`}
@@ -189,22 +189,22 @@ export const Donate = () => {
                   </a>
                 </div>
               )}
-              {isError && <div className="text-red-500 text-xs mt-2">Tx failed. Please try again.</div>}
+              {isError && <div className="text-red-500  mt-2">Tx failed. Please try again.</div>}
             </div>
           </div>
-          <p className="text-black text-xs font-normal mb-6">
+          <p className="text-black  font-normal mb-6">
             This project exists thanks to the generosity of the Ethereum community. There's no token, no foundation, no
             VC — just ETH from those who believe public infrastructure should remain public. Thank you.
           </p>
-          <p className="text-black text-xs font-normal mb-4">
+          <p className="text-black  font-normal mb-4">
             Below, we list all donors (by amount) with deep gratitude. Your support isn't just funding code — it's
             backing a future where rollups stay credibly neutral. Thank you.
           </p>
-          <div className="text-black text-xs">......................................................</div>
+          <div className="text-black ">......................................................</div>
           <br></br>
           <div className="flex flex-col w-full">
             <div className="flex w-full items-center">
-              <div className="w-1/2 text-black text-xs">Donation Address</div>
+              <div className="w-1/2 text-black ">Donation Address</div>
               <div className="w-1/2 flex justify-end items-center gap-2">
                 <button
                   onClick={() => fetchDonations(true)}
@@ -225,20 +225,20 @@ export const Donate = () => {
                     <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3" />
                   </svg>
                 </button>
-                <div className="text-black text-xs text-right">Amount (ETH)</div>
+                <div className="text-black  text-right">Amount (ETH)</div>
               </div>
             </div>
             <br></br>
             {isLoading ? (
-              <div className="text-black text-xs">Loading donations...</div>
+              <div className="text-black ">Loading donations...</div>
             ) : (
               donations.map((donation, index) => (
                 <div key={index}>
                   <div className="flex w-full pt-1">
                     <div className="w-3/4 text-black text-[10px]">{`${index + 1}. ${donation.from_name}`}</div>
-                    <div className="w-1/4 text-black text-xs text-right">{donation.eth_amount} ETH</div>
+                    <div className="w-1/4 text-black  text-right">{donation.eth_amount}</div>
                   </div>
-                  <div className="text-black text-xs">.......................................................</div>
+                  <div className="text-black ">.......................................................</div>
                 </div>
               ))
             )}

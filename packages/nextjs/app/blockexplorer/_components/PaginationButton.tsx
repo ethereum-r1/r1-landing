@@ -12,8 +12,8 @@ export const PaginationButton = ({ currentPage, totalItems, setCurrentPage }: Pa
   const isPrevButtonDisabled = currentPage === 0;
   const isNextButtonDisabled = currentPage + 1 >= Math.ceil(totalItems / ITEMS_PER_PAGE);
 
-  const prevButtonClass = isPrevButtonDisabled ? "btn-disabled cursor-default" : "btn-primary";
-  const nextButtonClass = isNextButtonDisabled ? "btn-disabled cursor-default" : "btn-primary";
+  const prevButtonClass = isPrevButtonDisabled ? "btn-disabled cursor-default" : "btn-primary shadow-none";
+  const nextButtonClass = isNextButtonDisabled ? "btn-disabled cursor-default" : "btn-primary shadow-none";
 
   if (isNextButtonDisabled && isPrevButtonDisabled) return null;
 
