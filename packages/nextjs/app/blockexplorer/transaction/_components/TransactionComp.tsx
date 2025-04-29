@@ -39,7 +39,7 @@ const TransactionComp = ({ txHash }: { txHash: Hash }) => {
 
   return (
     <div className="container mx-auto mt-10 mb-20 px-10 md:px-0">
-      <button className="btn btn-sm btn-primary" onClick={() => router.back()}>
+      <button className="btn btn-sm btn-primary shadow-none" onClick={() => router.back()}>
         Back
       </button>
       {transaction ? (

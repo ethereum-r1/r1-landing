@@ -1,6 +1,6 @@
-# R1 Landing
+# R1 UI
 
-A simple landing page for ethereum r1 project
+A scaffold-eth-2 project configured with Foundry for smart contract development, focusing on the Ethereum mainnet and Sepolia testnet.
 
 ## Getting Started
 
@@ -15,8 +15,8 @@ A simple landing page for ethereum r1 project
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/ethereum-r1/r1-landing.git
-cd r1-landing
+git clone https://github.com/kassandraoftroy/r1-ui.git
+cd r1-ui
 ```
 
 2. Install dependencies:

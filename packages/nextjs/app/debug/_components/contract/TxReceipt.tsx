@@ -36,7 +36,7 @@ export const TxReceipt = ({ txResult }: { txResult: TransactionReceipt }) => {
           <strong>Transaction Receipt</strong>
         </div>
         <div className="collapse-content overflow-auto bg-secondary rounded-t-none rounded-3xl !pl-0">
-          <pre className="text-xs">
+          <pre className="">
             {Object.entries(txResult).map(([k, v]) => (
               <ObjectFieldDisplay name={k} value={v} size="xs" leftPad={false} key={k} />
             ))}

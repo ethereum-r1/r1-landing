@@ -43,7 +43,7 @@ export const Balance = ({ address, className = "", usdMode }: BalanceProps) => {
 
   if (isError) {
     return (
-      <div className="border-2 border-base-content/30 rounded-md px-2 flex flex-col items-center max-w-fit cursor-pointer">
+      <div className="border-2 border-base-content/30 rounded-md px-2 flex flex-col items-start max-w-fit cursor-pointer">
         <div className="text-warning">Error</div>
       </div>
     );
@@ -53,11 +53,11 @@ export const Balance = ({ address, className = "", usdMode }: BalanceProps) => {
 
   return (
     <button
-      className={`btn btn-sm btn-ghost flex flex-col font-normal items-center hover:bg-transparent ${className}`}
+      className={`btn btn-sm btn-ghost flex flex-col font-normal pl-0 items-start hover:bg-transparent ${className}`}
       onClick={toggleDisplayUsdMode}
       type="button"
     >
-      <div className="w-full flex items-center justify-center">
+      <div className="w-full flex items-start">
         {displayUsdMode ? (
           <>
             <span className="text-[0.8em] font-bold mr-1">$</span>

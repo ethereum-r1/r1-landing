@@ -12,7 +12,7 @@ import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth";
 const textSizeMap = {
   "3xs": "text-[10px]",
   "2xs": "text-[11px]",
-  xs: "text-xs",
+  xs: "",
   sm: "text-sm",
   base: "text-base",
   lg: "text-lg",
