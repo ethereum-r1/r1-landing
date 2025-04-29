@@ -9,7 +9,7 @@ export const MainPage = () => {
     >
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
         {/* Left Column */}
-        <div className="w-full pt-12 sm:w-[430px]">
+        <div className="w-full pt-2 sm:w-[430px]">
           <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1</h1>
           <p className="text-black  font-normal mb-4">
             is a new rollup project grounded in the core values of Ethereum:
@@ -24,14 +24,14 @@ export const MainPage = () => {
                 Permissionless proving. Long upgrade delays. Broad ecosystem-wide multisig.
                 </li>
                 <li className="list-disc mb-4">Ethereum public good<br />
-                Proportion of base fees go to R&D and app dev until 2030 — then they're burned.</li>
+                Proportion of base fees go to R&D and app dev until 2030 — then they’re burned.</li>
                 <li className="list-disc mb-4">Replaceable by design<br />
                 No proprietary governance. No brand lock-in. No personalities to worship.
                 </li>
               </ul>
             </div>
           </div>
-          <div className="text-black  my-4">.....................................................</div>
+          <div className="block w-full border-b-2 border-black border-dotted"></div>
           <p className="text-black  font-normal mb-4">Join the movement — open call to:</p>
           <div className="mb-4 space-y-4">
             <ul className="pl-4">

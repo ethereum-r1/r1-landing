@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   const { activeView } = useAppContext();
 
   return (
-    <div className="flex justify-center flex-col flex-grow pt-4 bg-[white]">
+    <div className="flex justify-center flex-col sm:flex-grow pt-4 bg-[white]">
       <div className="px-5 bg-[white] w-full">{activeView === "r1" ? <MainPage /> : <Donate />}</div>
     </div>
   );

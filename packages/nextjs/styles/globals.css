@@ -46,7 +46,15 @@ p {
 }
 
 .btn {
-  @apply shadow-md;
+  @apply shadow-none;
+  @apply font-normal;
+  @apply transition-none;
+  @apply border-0
+}
+
+.btn:hover {
+  @apply bg-neutral-600;
+  @apply transition-none;
 }
 
 .btn.btn-ghost {

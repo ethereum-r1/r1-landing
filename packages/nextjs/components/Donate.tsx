@@ -14,7 +14,7 @@ export const Donate = () => {
   const [amountError, setAmountError] = useState<string>("");
   const [txHash, setTxHash] = useState<string>("");
 
-  const DONATION_ADDRESS = "0x5962564f5c89F84F9A344E11D2c70370E02e9fC1";
+  const DONATION_ADDRESS = "0xE73EaFBf9061f26Df4f09e08B53c459Df03E2b66";
   const { address, isConnected } = useAccount();
   const { sendTransaction, isPending, isSuccess, isError, reset } = useSendTransaction({
     mutation: {
@@ -122,8 +122,8 @@ export const Donate = () => {
       style={{ lineHeight: "133%" }}
     >
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
-        <div className="w-full pt-12 sm:w-[430px]">
-          <h1 className="text-black  font-normal leading-none mb-4">Ethereum (R1) is powered by you.</h1>
+        <div className="w-full pt-2 sm:w-[430px]">
+          <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1 is powered by you.</h1>
           <p className="text-black  font-normal mb-6">
             Donate Below (or simply send ETH on ethereum mainnet to{" "}
             <span className="text-[10px] bg-gray-100 p-1">{DONATION_ADDRESS}</span>)
@@ -193,14 +193,14 @@ export const Donate = () => {
             </div>
           </div>
           <p className="text-black  font-normal mb-6">
-            This project exists thanks to the generosity of the Ethereum community. There's no token, no foundation, no
+            This project exists thanks to the generosity of the Ethereum community. There’s no token, no foundation, no
             VC — just ETH from those who believe public infrastructure should remain public. Thank you.
           </p>
           <p className="text-black  font-normal mb-4">
-            Below, we list all donors (by amount) with deep gratitude. Your support isn't just funding code — it's
+            Below, we list all donors (by amount) with deep gratitude. Your support isn’t just funding code — it’s
             backing a future where rollups stay credibly neutral. Thank you.
           </p>
-          <div className="text-black ">......................................................</div>
+          <div className="block w-full border-b-2 border-black border-dotted"></div>
           <br></br>
           <div className="flex flex-col w-full">
             <div className="flex w-full items-center">
@@ -238,7 +238,7 @@ export const Donate = () => {
                     <div className="w-3/4 text-black text-[10px]">{`${index + 1}. ${donation.from_name}`}</div>
                     <div className="w-1/4 text-black  text-right">{donation.eth_amount}</div>
                   </div>
-                  <div className="text-black ">.......................................................</div>
+                  <div className="block w-full border-b-2 border-black border-dotted"></div>
                 </div>
               ))
             )}
