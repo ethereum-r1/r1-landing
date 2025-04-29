@@ -1,6 +1,6 @@
-# R1 UI
+# R1 Landing
 
-A scaffold-eth-2 project configured with Foundry for smart contract development, focusing on the Ethereum mainnet and Sepolia testnet.
+A simple landing page for ethereum r1 project
 
 ## Getting Started
 
