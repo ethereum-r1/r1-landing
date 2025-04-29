@@ -1,0 +1,15 @@
+{
+  "name": "@se-2/foundry",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "deploy:sepolia": "forge script script/Deploy.s.sol --rpc-url $SEPOLIA_RPC_URL --broadcast --verify -vvvv",
+    "deploy:mainnet": "forge script script/Deploy.s.sol --rpc-url $MAINNET_RPC_URL --broadcast --verify -vvvv",
+    "verify": "forge script script/VerifyAll.s.sol"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  }
+}

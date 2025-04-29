@@ -1,0 +1,49 @@
+{
+  "name": "se-2",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/foundry",
+      "packages/nextjs"
+    ]
+  },
+  "scripts": {
+    "format": "yarn next:format",
+    "foundry:build": "yarn workspace @se-2/foundry build",
+    "foundry:test": "yarn workspace @se-2/foundry test",
+    "foundry:deploy:sepolia": "yarn workspace @se-2/foundry deploy:sepolia",
+    "foundry:deploy:mainnet": "yarn workspace @se-2/foundry deploy:mainnet",
+    "foundry:verify": "yarn workspace @se-2/foundry verify",
+    "lint": "yarn next:lint",
+    "next:build": "yarn workspace @se-2/nextjs build",
+    "next:check-types": "yarn workspace @se-2/nextjs check-types",
+    "next:format": "yarn workspace @se-2/nextjs format",
+    "next:lint": "yarn workspace @se-2/nextjs lint",
+    "next:serve": "yarn workspace @se-2/nextjs serve",
+    "postinstall": "husky",
+    "precommit": "lint-staged",
+    "start": "yarn workspace @se-2/nextjs start",
+    "start:force": "yarn workspace @se-2/nextjs start:force",
+    "test": "yarn foundry:test",
+    "vercel": "yarn workspace @se-2/nextjs vercel",
+    "vercel:yolo": "yarn workspace @se-2/nextjs vercel:yolo",
+    "ipfs": "yarn workspace @se-2/nextjs ipfs",
+    "vercel:login": "yarn workspace @se-2/nextjs vercel:login",
+    "verify": "yarn foundry:verify",
+    "deploy:sepolia": "yarn foundry:deploy:sepolia",
+    "deploy:mainnet": "yarn foundry:deploy:mainnet",
+    "build": "yarn foundry:build"
+  },
+  "packageManager": "yarn@3.2.3",
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10"
+  },
+  "engines": {
+    "node": ">=20.18.3"
+  },
+  "dependencies": {
+    "graphql": "^16.10.0"
+  }
+}
