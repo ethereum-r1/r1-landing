@@ -52,6 +52,15 @@ To run the development server:
 yarn start
 ```
 
+## Export to IPFS
+
+run this
+
+```
+chmod +x build-ipfs.sh
+./build-ipfs.sh
+```
+
 ## License
 
 This project is licensed under the MIT License.

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono&display=swap');
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -5,24 +6,6 @@
 :root,
 [data-theme] {
   background: oklch(var(--b2));
-}
-
-@font-face {
-  font-family: 'DM Mono';
-  src: url('/fonts/DMMono-Regular.woff2') format('woff2'),
-      url('/fonts/DMMono-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'DM Mono';
-  src: url('/fonts/DMMono-Italic.woff2') format('woff2'),
-      url('/fonts/DMMono-Italic.woff') format('woff');
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
 }
 
 body {

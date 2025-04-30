@@ -52,7 +52,7 @@ export const MainPage = () => {
             <div className="flex">
               <span className="mr-2">→</span>
               <a
-                href="https://docs.google.com/document/d/1vEC1Eq-jbZAWBp5BAOH5gBYDeVjECfPJo-zNY_auZpI"
+                href="https://hackmd.io/@kzg/roadmapr1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-black border-b border-white hover:border-b hover:border-black"
@@ -63,7 +63,7 @@ export const MainPage = () => {
             <div className="flex">
               <span className="mr-2">→</span>
               <a
-                href="#"
+                href="https://github.com/ethereum-r1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-black border-b border-white hover:border-b hover:border-black"
@@ -72,36 +72,27 @@ export const MainPage = () => {
               </a>
               &nbsp;/&nbsp;
               <a
-                href="#"
+                href="https://x.com/ethereumR1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mx-1 text-black border-b border-white hover:border-b hover:border-black"
               >
-                Discord
+                Twitter
               </a>
               &nbsp;/&nbsp;
               <a
-                href="#"
+                href="https://t.me/ethereumR1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mx-1 text-black border-b border-white hover:border-b hover:border-black"
               >
                 Telegram
               </a>
-              &nbsp;/&nbsp;
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-1 text-black border-b border-white hover:border-b hover:border-black"
-              >
-                Notion
-              </a>
             </div>
             <div className="flex">
               <span className="mr-2">→</span>
               <a
-                href="#"
+                href="https://twitter.com/intent/tweet?text=we+❤️+ethereum%0Awe+R1&url=https://ethr1.eth.limo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-black border-b border-white hover:border-b hover:border-black"
