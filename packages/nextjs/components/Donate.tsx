@@ -198,7 +198,7 @@ export const Donate = () => {
           </p>
           <p className="text-black  font-normal mb-4">
             Below, we list all donors (by amount) with deep gratitude. Your support isn’t just funding code — it’s
-            backing a future where rollups stay credibly neutral. Thank you.
+            backing a future where rollups stay credibly neutral.
           </p>
           <div className="block w-full border-b-2 border-black border-dotted"></div>
           <br></br>

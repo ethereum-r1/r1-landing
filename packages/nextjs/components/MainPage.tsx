@@ -92,7 +92,7 @@ export const MainPage = () => {
             <div className="flex">
               <span className="mr-2">→</span>
               <a
-                href="https://twitter.com/intent/tweet?text=we+❤️+ethereum%0Awe+R1&url=https://ethr1.eth.limo"
+                href="https://twitter.com/intent/tweet?text=we+❤️+ethereum%0Awe+R1%0A@ethereumR1&url=https://ethereumr1.org"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-black border-b border-white hover:border-b hover:border-black"
