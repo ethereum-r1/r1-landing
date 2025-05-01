@@ -1,27 +1,34 @@
 "use client";
 
 import React from "react";
+import { useAppContext } from "~~/contexts/AppContext";
 
 export const MainPage = () => {
+  const { setActiveView } = useAppContext();
   return (
     <div
       className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0 px-0"
     >
-      <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
-        {/* Left Column */}
+      <div className="flex w-full justify-center">
         <div className="w-full pt-2 sm:w-[430px]">
           <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1</h1>
           <p className="text-black  font-normal mb-4">
             is a new rollup project grounded in the core values of Ethereum:
           </p>
-          <div className="mb-4 space-y-4">
+          <div className="text-black mb-4 space-y-4">
             <div className="space-y-4">
               <ul className="pl-4">
                 <li className="list-disc mb-4">100% donation-funded<br />
-                No token. No private sales. Just public ETH contributions.
+                No token. No VC. No private sales. Just public ETH contributions.{" "}
+                <button
+                  onClick={() => setActiveView("donate")}
+                  className="underline hover:opacity-80"
+                >
+                  Donate Now
+                </button>
                 </li>
                 <li className="list-disc mb-4">Stage 2 from day one<br />
-                Permissionless proving. Long upgrade delays. Broad ecosystem-wide multisig.
+                Permissionless proving. Transparent upgrade path. Long upgrade delays.
                 </li>
                 <li className="list-disc mb-4">Ethereum public good<br />
                 Proportion of base fees go to R&D and app dev until 2030 — then they’re burned.</li>
@@ -33,14 +40,14 @@ export const MainPage = () => {
           </div>
           <div className="block w-full border-b-2 border-black border-dotted"></div>
           <p className="text-black  font-normal mb-4">Join the movement — open call to:</p>
-          <div className="mb-4 space-y-4">
+          <div className="text-black mb-4 space-y-4">
             <ul className="pl-4">
               <li className="list-disc mb-4">Developers<br />
-                Ready to contribute to a truly public & neutral rollup.</li>
+              Contribute to a credibly neutral rollup with no gatekeepers.</li>
               <li className="list-disc mb-4">App teams<br />
-                Seeking a censorship-resistant home.</li>
+              Deploy to a censorship-resistant home.</li>
               <li className="list-disc mb-4">ETH holders<br />
-                Ready to fund something aligned with Ethereum, not extraction.
+              Fund Ethereum public goods, not extranction schemes.
               </li>
             </ul>
           </div>
