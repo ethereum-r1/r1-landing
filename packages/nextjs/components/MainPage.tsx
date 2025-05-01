@@ -47,7 +47,7 @@ export const MainPage = () => {
               <li className="list-disc mb-4">App teams<br />
               Deploy to a censorship-resistant home.</li>
               <li className="list-disc mb-4">ETH holders<br />
-              Fund Ethereum public goods, not extranction schemes.
+              Fund Ethereum public goods, not extraction schemes.
               </li>
             </ul>
           </div>
