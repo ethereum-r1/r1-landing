@@ -124,7 +124,7 @@ export const Donate = () => {
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
         <div className="w-full pt-2 sm:w-[430px]">
           <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1 is powered by you.</h1>
-          <p className="text-black  font-normal mb-6">
+          {/*<p className="text-black  font-normal mb-6">
             Donate Below (or simply send ETH on ethereum mainnet to{" "}
             <span className="text-[10px] bg-gray-100 p-1">{DONATION_ADDRESS}</span>)
           </p>
@@ -191,11 +191,24 @@ export const Donate = () => {
               )}
               {isError && <div className="text-red-500  mt-2">Tx failed. Please try again.</div>}
             </div>
-          </div>
+          </div>*/}
+          <div className="block w-full border-b-2 border-black border-dotted"></div>
           <p className="text-black  font-normal mb-6">
-            This project exists thanks to the generosity of the Ethereum community. There’s no token, no foundation, no
-            VC — just ETH from those who believe public infrastructure should remain public. Thank you.
+          ⚠️ Community Update — Ethereum R1 Donations ⚠️
           </p>
+
+          <p className="text-black  font-normal mb-6">
+          We’re updating the donation process to make it fully trustless and transparent. A new smart contract donation page is coming soon — allowing ETH contributions to go directly into a smart contract.
+          </p>
+          <p className="text-black  font-normal mb-6">
+          If total donations reach 1,000 ETH by September 1, 2025, the dev team will be able to claim the funds.
+          If the target is not met, all donors will be able to withdraw their contributions.
+          </p>
+          <p className="text-black  font-normal mb-6">
+          The ETH donations received so far will be transferred to the smart contract once it’s live.
+          Thank you for helping us build Ethereum’s neutral rollup, together.
+          </p>
+          <div className="block w-full border-b-2 border-black border-dotted"></div>
           <p className="text-black  font-normal mb-4">
             Below, we list all donors (by amount) with deep gratitude. Your support isn’t just funding code — it’s
             backing a future where rollups stay credibly neutral.
