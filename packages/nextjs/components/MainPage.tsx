@@ -64,7 +64,7 @@ export const MainPage = () => {
                 rel="noopener noreferrer"
                 className="text-black border-b border-white hover:border-b hover:border-black"
               >
-                Neutral Rollup Roadmap
+                Draft Roadmap
               </a>
             </div>
             <div className="flex">
