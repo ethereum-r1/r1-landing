@@ -20,12 +20,12 @@ export const MainPage = () => {
               <ul className="pl-4">
                 <li className="list-disc mb-4">100% donation-funded<br />
                 No token. No VC. No private sales. Just public ETH contributions.{" "}
-                {/*<button
+                <button
                   onClick={() => setActiveView("donate")}
                   className="underline hover:opacity-80"
                 >
                   Donate Now
-                </button>*/}
+                </button>
                 </li>
                 <li className="list-disc mb-4">Stage 2 from day one<br />
                 Permissionless proving. Transparent upgrade path. Long upgrade delays.
