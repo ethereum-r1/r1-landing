@@ -184,7 +184,7 @@ export const Donate = () => {
         <div className="w-full pt-2 sm:w-[430px]">
           <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1 is powered by you.</h1>
           <p className="text-black  font-normal mb-6">
-            Donate Below (to the donation smart contract on Ethereum Mainnet, only accepts native ETH)
+            Donate below to the donation smart contract on Ethereum Mainnet, only accepts native ETH.
           </p>
           <div className="mb-6">
             <div className="mb-2">
@@ -206,7 +206,7 @@ export const Donate = () => {
             <div className="mt-4">
               {!isConnected ? (
                 <div className="w-full">
-                  <RainbowKitCustomConnectButton buttonText="Connect To Donate" />
+                  <RainbowKitCustomConnectButton buttonText="Connect to Donate" />
                 </div>
               ) : (
                 <button
@@ -262,26 +262,22 @@ export const Donate = () => {
           <br></br>
           {<div className="font-mono text-black mb-8">
             <div className="text-sm mb-1">
-              Donations Progress... ({totalDonations >= 1000 ? "1000" : totalDonations.toFixed(2)} out of 1000 ETH)
+              Donation Progress... {Math.min(100, (totalDonations / 1000) * 100).toFixed(2)}%
             </div>
-            <div className="border border-black p-2">
+            <div className="border border-black p-1">
               <div className="flex items-center">
-                <span className="mr-2">\</span>
-                {Math.min(100, (totalDonations / 1000) * 100).toFixed(2)}%
-                <span className="mx-2">[</span>
                 <div className="flex-1 bg-white">
                   <div 
-                    className="h-4 bg-black" 
+                    className="h-6 bg-black" 
                     style={{
                       width: `${Math.min(100, (totalDonations / 1000) * 100)}%`
                     }}
                   />
                 </div>
-                <span className="ml-2">]</span>
               </div>
             </div>
             <div className="text-sm mt-1">
-              time left: {Math.floor((END_TIMESTAMP - new Date().getTime() / 1000) / (60 * 60 * 24))} days
+            {totalDonations >= 1000 ? "1000" : totalDonations.toFixed(2)} / 1000 ETH received. Time left: {Math.floor((END_TIMESTAMP - new Date().getTime() / 1000) / (60 * 60 * 24))} days
             </div>
           </div>}
           <div className="flex flex-col w-full">
@@ -310,7 +306,6 @@ export const Donate = () => {
                 <div className="text-black  text-right">Amount (ETH)</div>
               </div>
             </div>
-            <br></br>
             {isLoading ? (
               <div className="text-black ">Loading donations...</div>
             ) : (

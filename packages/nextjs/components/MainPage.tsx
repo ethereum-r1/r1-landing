@@ -19,12 +19,12 @@ export const MainPage = () => {
             <div className="space-y-4">
               <ul className="pl-4">
                 <li className="list-disc mb-4">100% donation-funded<br />
-                No token. No VC. No private sales. Just public ETH contributions.{" "}
+                No token. No VC. No private sales. Just public ETH contributions.{" "} → {" "}
                 <button
                   onClick={() => setActiveView("donate")}
-                  className="underline hover:opacity-80"
+                  className="text-black border-b border-white hover:border-b hover:border-black"
                 >
-                  Donate Now
+                   Donate Now
                 </button>
                 </li>
                 <li className="list-disc mb-4">Stage 2 from day one<br />
