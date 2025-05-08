@@ -1,41 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { isAddress, parseEther } from "viem";
-import { useAccount, useSendTransaction } from "wagmi";
+import { useEffect, useState, useCallback } from "react";
+import { Address, Chain, createPublicClient, http, isAddress, parseEther } from "viem";
+import { mainnet, sepolia } from "viem/chains";
+import { useAccount, useSendTransaction, useWriteContract } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import EthDonations from "~~/contracts/EthDonations.json";
 
 export const Donate = () => {
   const [donations, setDonations] = useState<
     { eth_amount: string; from_address: string; from_name: string; tx_hash: string }[]
   >([]);
+  const [totalDonations, setTotalDonations] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
   const [donationAmount, setDonationAmount] = useState<string>("");
   const [amountError, setAmountError] = useState<string>("");
   const [txHash, setTxHash] = useState<string>("");
+  const { writeContractAsync } = useWriteContract();
 
-  const DONATION_ADDRESS = "0xE73EaFBf9061f26Df4f09e08B53c459Df03E2b66";
-  const { address, isConnected } = useAccount();
-  const { sendTransaction, isPending, isSuccess, isError, reset } = useSendTransaction({
-    mutation: {
-      onSuccess(data) {
-        // Clear input after successful transaction
-        setDonationAmount("");
-        // The data parameter is the transaction hash
-        setTxHash(data);
-      },
-    },
-  });
+  const DONATION_ADDRESS_SEPOLIA = "0xA2126FF93Fb4D07ffa498b90558B08bE4CC7be01";
+  const DONATION_ADDRESS_MAINNET = "NONE";
+  const TARGET_CHAIN = process.env.NEXT_PUBLIC_ENVIRONMENT === 'development' ? sepolia : mainnet;
+  const END_TIMESTAMP = 1754145924;
+  const { address: connectedAddress, isConnected, chain } = useAccount();
+  const [isPending, setIsPending] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setDonationAmount(value);
-
-    // Reset transaction status when user starts typing again
-    if (isPending || isSuccess || isError) {
-      reset();
-      setTxHash("");
-    }
+    setIsSuccess(false);
+    setIsError(false);
+    setIsPending(false);
+    setTxHash("");
 
     // Validate the input is a valid number
     if (value === "") {
@@ -49,21 +47,44 @@ export const Donate = () => {
     }
   };
 
-  const handleDonate = () => {
+  const handleDonate = async () => {
     if (!isConnected || !donationAmount || amountError) return;
 
     try {
+      setIsPending(true);
       // Convert the ETH amount to wei
       const valueInEth = parseEther(donationAmount);
 
-      // Send the transaction
-      sendTransaction({
-        to: DONATION_ADDRESS,
-        value: valueInEth,
+      // Create a client for the current network
+      const client = createPublicClient({
+        chain: TARGET_CHAIN === sepolia ? sepolia : mainnet,
+        transport: http(),
       });
+      // Prepare the contract call
+      const { request } = await client.simulateContract({
+        address: TARGET_CHAIN === sepolia ? DONATION_ADDRESS_SEPOLIA : DONATION_ADDRESS_MAINNET as Address,
+        abi: EthDonations.abi,
+        functionName: 'donate',
+        args: [],
+        value: valueInEth,
+        account: connectedAddress
+      });
+
+      const hash = await writeContractAsync(request);
+      console.log("donation hash", hash);
+      // Clear input after successful transaction
+      setDonationAmount("");
+      // The data parameter is the transaction hash
+      setTxHash(hash);
+      setIsPending(false);
+      setIsSuccess(true);
+      // const receipt = await client.waitForTransactionReceipt({ hash });
     } catch (error) {
       console.error("Error sending donation:", error);
       setAmountError("Failed to send transaction. Please try again.");
+      setIsPending(false);
+      setIsSuccess(false);
+      setIsError(true);
     }
   };
 
@@ -72,20 +93,58 @@ export const Donate = () => {
       setIsLoading(true);
     }
     try {
-      const response = await fetch("https://0000000000.org/transfers");
+      const response = await fetch("/api/donations");
       if (!response.ok) {
         throw new Error("Failed to fetch donations");
       }
       const donations = await response.json();
+      
+      // Calculate total donations
+      const totalDonations = donations.reduce((sum: number, donation: any) => {
+        return sum + parseFloat(donation.eth_amount);
+      }, 0);
+      setTotalDonations(totalDonations);
+
+      // Combine donations from the same address
+      const donationsByAddress = new Map<string, { 
+        eth_amount: number,
+        from_address: string,
+        from_name: string,
+        tx_hash: string 
+      }>();
+
       for (const donation of donations) {
+        const amount = parseFloat(donation.eth_amount);
+        if (donationsByAddress.has(donation.from_address)) {
+          const existing = donationsByAddress.get(donation.from_address)!;
+          existing.eth_amount += amount;
+        } else {
+          donationsByAddress.set(donation.from_address, {
+            eth_amount: amount,
+            from_address: donation.from_address,
+            from_name: donation.from_name,
+            tx_hash: donation.tx_hash
+          });
+        }
+      }
+
+      // Convert back to array and convert amounts to strings
+      const combinedDonations = Array.from(donationsByAddress.values()).map(donation => ({
+        ...donation,
+        eth_amount: donation.eth_amount.toString()
+      }));
+
+      // Clean up trailing zeros
+      for (const donation of combinedDonations) {
         donation.eth_amount = donation.eth_amount.replace(/\.?0+$/, "");
       }
 
       // Sort donations by amount in descending order
-      const sortedDonations = donations.sort((a: { eth_amount: string }, b: { eth_amount: string }) => {
+      const sortedDonations = combinedDonations.sort((a, b) => {
         return parseFloat(b.eth_amount) - parseFloat(a.eth_amount);
       });
 
+      // Truncate amounts and handle small values
       for (const donation of sortedDonations) {
         donation.eth_amount = donation.eth_amount.substring(0, 7);
         if (donation.eth_amount === "0.00000") {
@@ -124,9 +183,8 @@ export const Donate = () => {
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
         <div className="w-full pt-2 sm:w-[430px]">
           <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1 is powered by you.</h1>
-          {/*<p className="text-black  font-normal mb-6">
-            Donate Below (or simply send ETH on ethereum mainnet to{" "}
-            <span className="text-[10px] bg-gray-100 p-1">{DONATION_ADDRESS}</span>)
+          <p className="text-black  font-normal mb-6">
+            Donate below to the donation smart contract on Ethereum Mainnet, only accepts native ETH.
           </p>
           <div className="mb-6">
             <div className="mb-2">
@@ -148,15 +206,15 @@ export const Donate = () => {
             <div className="mt-4">
               {!isConnected ? (
                 <div className="w-full">
-                  <RainbowKitCustomConnectButton buttonText="Connect To Donate" />
+                  <RainbowKitCustomConnectButton buttonText="Connect to Donate" />
                 </div>
               ) : (
                 <button
                   onClick={handleDonate}
-                  disabled={!!amountError || !donationAmount || !isConnected || isPending}
+                  disabled={!!amountError || !donationAmount || !isConnected || isPending || TARGET_CHAIN != chain}
                   className="btn btn-primary shadow-none btn-sm min-w-[180px]"
                 >
-                  {isPending ? "Confirming..." : "Donate"}
+                  {TARGET_CHAIN != chain ? "Wrong Network" : isPending ? "Confirming..." : "Donate"}
                 </button>
               )}
               {isPending && <div className="text-blue-500  mt-2">Tx pending...</div>}
@@ -164,7 +222,7 @@ export const Donate = () => {
                 <div className="text-green-500  mt-2">
                   Tx submitted! Thank you for your donation.{" "}
                   <a
-                    href={`https://etherscan.io/tx/${txHash}`}
+                    href={TARGET_CHAIN === sepolia ? `https://sepolia.etherscan.io/tx/${txHash}` : `https://etherscan.io/tx/${txHash}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-green-500 underline transition-all hover:scale-105"
@@ -191,30 +249,37 @@ export const Donate = () => {
               )}
               {isError && <div className="text-red-500  mt-2">Tx failed. Please try again.</div>}
             </div>
-          </div>*/}
-          <div className="block w-full border-b-2 border-black border-dotted"></div>
-          <p className="text-black  font-normal mb-6">
-          ⚠️ Community Update — Ethereum R1 Donations ⚠️
+          </div>
+          <p className="text-black  font-normal mb-4">
+            This project exists thanks to the generosity of the Ethereum community. There’s no token, no foundation, no
+            VC — just ETH from those who believe public infrastructure should remain public. Thank you.
           </p>
-
-          <p className="text-black  font-normal mb-6">
-          We’re updating the donation process to make it fully trustless and transparent. A new smart contract donation page is coming soon — allowing ETH contributions to go directly into a smart contract.
-          </p>
-          <p className="text-black  font-normal mb-6">
-          If total donations reach 1,000 ETH by September 1, 2025, the dev team will be able to claim the funds.
-          If the target is not met, all donors will be able to withdraw their contributions.
-          </p>
-          <p className="text-black  font-normal mb-6">
-          The ETH donations received so far will be transferred to the smart contract once it’s live.
-          Thank you for helping us build Ethereum’s neutral rollup, together.
-          </p>
-          <div className="block w-full border-b-2 border-black border-dotted"></div>
           <p className="text-black  font-normal mb-4">
             Below, we list all donors (by amount) with deep gratitude. Your support isn’t just funding code — it’s
             backing a future where rollups stay credibly neutral.
           </p>
           <div className="block w-full border-b-2 border-black border-dotted"></div>
           <br></br>
+          {<div className="font-mono text-black mb-8">
+            <div className="text-sm mb-1">
+              Donation Progress... {Math.min(100, (totalDonations / 1000) * 100).toFixed(2)}%
+            </div>
+            <div className="border border-black p-1">
+              <div className="flex items-center">
+                <div className="flex-1 bg-white">
+                  <div 
+                    className="h-6 bg-black" 
+                    style={{
+                      width: `${Math.min(100, (totalDonations / 1000) * 100)}%`
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="text-sm mt-1">
+            {totalDonations >= 1000 ? "1000" : totalDonations.toFixed(2)} / 1000 ETH received. Time left: {Math.floor((END_TIMESTAMP - new Date().getTime() / 1000) / (60 * 60 * 24))} days
+            </div>
+          </div>}
           <div className="flex flex-col w-full">
             <div className="flex w-full items-center">
               <div className="w-1/2 text-black ">Donation Address</div>
@@ -241,7 +306,6 @@ export const Donate = () => {
                 <div className="text-black  text-right">Amount (ETH)</div>
               </div>
             </div>
-            <br></br>
             {isLoading ? (
               <div className="text-black ">Loading donations...</div>
             ) : (

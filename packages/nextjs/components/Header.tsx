@@ -69,12 +69,12 @@ export const Header = () => {
           </div>
         </div>
       </div>
-      <div className="block relative pt-20 sm:absolute sm:top-4 sm:right-14 sm:z-20 sm:pt-0">
-        {/*activeView === "donate" && (
-          <div className="flex px-5 flex-start sm:justify-end">
+      <div className="block relative pt-20 sm:absolute sm:top-4 sm:right-14 sm:z-20 sm:pt-0 sm:fixed sm:right-[14rem]">
+        {activeView === "donate" && (
+          <div className="flex px-5 flex-start sm:justify-end sm:fixed">
             <RainbowKitCustomConnectButton />
           </div>
-        )*/}
+        )}
       </div>
     </div>
   );

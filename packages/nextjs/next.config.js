@@ -20,6 +20,14 @@ const nextConfig = {
     // Only optimize package imports, not CSS (requires extra dependency)
     optimizePackageImports: ['react', '@rainbow-me/rainbowkit'],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://0000000000.org/:path*',
+      },
+    ];
+  },
   webpack: config => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     config.externals.push("pino-pretty", "lokijs", "encoding");
