@@ -20,6 +20,7 @@ const nextConfig = {
     // Only optimize package imports, not CSS (requires extra dependency)
     optimizePackageImports: ['react', '@rainbow-me/rainbowkit'],
   },
+  // !NOTE: uncomment rewrites for local dev, comment for prod deployment
   async rewrites() {
     return [
       {

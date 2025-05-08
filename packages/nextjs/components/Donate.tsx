@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { Address, Chain, createPublicClient, http, isAddress, parseEther } from "viem";
+import { useEffect, useState } from "react";
+import { Address, createPublicClient, http, parseEther } from "viem";
 import { mainnet, sepolia } from "viem/chains";
-import { useAccount, useSendTransaction, useWriteContract } from "wagmi";
+import { useAccount, useWriteContract } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import EthDonations from "~~/contracts/EthDonations.json";
 
@@ -93,11 +93,21 @@ export const Donate = () => {
       setIsLoading(true);
     }
     try {
-      const response = await fetch("/api/donations");
-      if (!response.ok) {
+      // for prod: fetch("https://0000000000.org/donations")
+      const response1 = await fetch("/api/donations");
+      if (!response1.ok) {
         throw new Error("Failed to fetch donations");
       }
-      const donations = await response.json();
+      const donations1 = await response1.json();
+
+      // for prod: fetch("https://0000000000.org/transfers")
+      const response2 = await fetch("/api/transfers");
+      if (!response2.ok) {
+        throw new Error("Failed to fetch donations");
+      }
+      const donations2 = await response2.json();
+
+      const donations = [...donations1, ...donations2];
       
       // Calculate total donations
       const totalDonations = donations.reduce((sum: number, donation: any) => {
