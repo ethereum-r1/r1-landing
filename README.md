@@ -38,10 +38,9 @@ cp packages/nextjs/.env.example packages/nextjs/.env.local
 In your `packages/nextjs/.env.local` file, add the following:
 
 ```
-NEXT_PUBLIC_ALCHEMY_API_KEY=your_alchemy_api_key
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_wallet_connect_project_id
-NEXT_PUBLIC_ETHEREUM_RPC_URL=your_ethereum_mainnet_rpc_url
-NEXT_PUBLIC_SEPOLIA_RPC_URL=your_sepolia_testnet_rpc_url
+NEXT_PUBLIC_ENVIRONMENT=production_or_development
+NEXT_PUBLIC_IPFS_BUILD=true_or_false
 ```
 
 ## Development
