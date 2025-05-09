@@ -23,7 +23,9 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
     <html suppressHydrationWarning>
       <body>
         <ThemeProvider defaultTheme="light" enableSystem={false} forcedTheme="light">
-          <ScaffoldEthAppWithProviders>{children}</ScaffoldEthAppWithProviders>
+          <ScaffoldEthAppWithProviders>
+            <div className="flex justify-center flex-col sm:flex-grow pt-4 bg-[white] sm:pt-14">{children}</div>
+          </ScaffoldEthAppWithProviders>
         </ThemeProvider>
       </body>
     </html>
