@@ -1,45 +1,44 @@
 "use client";
 
 import React from "react";
-import { useAccount } from "wagmi";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useAppContext } from "~~/contexts/AppContext";
 
 type HeaderMenuLink = {
   label: string;
-  view: string;
+  href: string;
   icon?: React.ReactNode;
 };
 
 export const menuLinks: HeaderMenuLink[] = [
   {
     label: "Ethereum R1",
-    view: "r1",
+    href: "/",
   },
   {
     label: "Donate",
-    view: "donate",
+    href: "/donate",
   },
 ];
 
 export const HeaderMenuLinks = () => {
-  const { activeView, setActiveView } = useAppContext();
-
+  const pathname = usePathname();
   return (
     <>
-      {menuLinks.map(({ label, view, icon }) => {
-        const isActive = activeView === view;
+      {menuLinks.map(({ label, href, icon }) => {
         return (
-          <li key={view} className="list-none">
-            <button
-              onClick={() => setActiveView(view)}
+          <li key={href} className="list-none">
+            <Link
+              href={href}
               className={`relative text-black bg-transparent outline-none focus:outline-none focus:bg-transparent active:bg-transparent hover:bg-transparent hover:border-b border-black p-0 transform transition-transform ${
-                isActive ? "border-b border-black" : ""
+                pathname === href ? "border-b border-black" : ""
               }`}
             >
               {icon}
               <span>{label}</span>
-            </button>
+            </Link>
           </li>
         );
       })}
@@ -51,7 +50,7 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
-  const { setActiveView, activeView } = useAppContext();
+  const pathname = usePathname();
 
   return (
     <div>
@@ -70,7 +69,7 @@ export const Header = () => {
         </div>
       </div>
       <div className="block relative pt-20 sm:fixed sm:top-4 sm:right-14 sm:z-20 sm:pt-0">
-        {activeView === "donate" && (
+        {pathname === "/donate" && (
           <div className="flex px-5 flex-start sm:justify-end">
             <RainbowKitCustomConnectButton />
           </div>
