@@ -93,15 +93,15 @@ export const Donate = () => {
       setIsLoading(true);
     }
     try {
-      // for prod: fetch("https://0000000000.org/donations")
-      const response1 = await fetch("/api/donations");
+      // for dev: fetch("/api/donations")
+      const response1 = await fetch("https://0000000000.org/donations");
       if (!response1.ok) {
         throw new Error("Failed to fetch donations");
       }
       const donations1 = await response1.json();
 
-      // for prod: fetch("https://0000000000.org/transfers")
-      const response2 = await fetch("/api/transfers");
+      // for dev: fetch("/api/transfers")
+      const response2 = await fetch("https://0000000000.org/transfers");
       if (!response2.ok) {
         throw new Error("Failed to fetch donations");
       }

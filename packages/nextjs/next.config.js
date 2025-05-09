@@ -21,14 +21,14 @@ const nextConfig = {
     optimizePackageImports: ['react', '@rainbow-me/rainbowkit'],
   },
   // !NOTE: uncomment rewrites for local dev, comment for prod deployment
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'https://0000000000.org/:path*',
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/api/:path*',
+  //       destination: 'https://0000000000.org/:path*',
+  //     },
+  //   ];
+  // },
   webpack: config => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     config.externals.push("pino-pretty", "lokijs", "encoding");
