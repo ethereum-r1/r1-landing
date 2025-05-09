@@ -19,9 +19,9 @@ export const Donate = () => {
   const { writeContractAsync } = useWriteContract();
 
   const DONATION_ADDRESS_SEPOLIA = "0xA2126FF93Fb4D07ffa498b90558B08bE4CC7be01";
-  const DONATION_ADDRESS_MAINNET = "NONE";
+  const DONATION_ADDRESS_MAINNET = "0xE610E35d7C5a46384587da5125d63578993FD6D7";
   const TARGET_CHAIN = process.env.NEXT_PUBLIC_ENVIRONMENT === 'development' ? sepolia : mainnet;
-  const END_TIMESTAMP = 1754145924;
+  const END_TIMESTAMP = 1756763999;
   const { address: connectedAddress, isConnected, chain } = useAccount();
   const [isPending, setIsPending] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
