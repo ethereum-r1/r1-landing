@@ -7,7 +7,7 @@ import { useAccount, useWriteContract } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import EthDonations from "~~/contracts/EthDonations.json";
 
-export const Donate = () => {
+const Donate = () => {
   const [donations, setDonations] = useState<
     { eth_amount: string; from_address: string; from_name: string; tx_hash: string }[]
   >([]);

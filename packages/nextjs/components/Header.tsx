@@ -54,7 +54,7 @@ export const Header = () => {
 
   return (
     <div>
-      <div className="fixed w-full top-0 min-h-0 h-16 flex flex-row flex-shrink-0 justify-between z-20 px-4 bg-white sm:bg-transparent">
+      <div className="fixed w-full top-0 min-h-0 h-16 flex flex-row flex-shrink-0 justify-between z-20 px-4 bg-white lg:bg-transparent">
         <div className="w-auto lg:w-1/2 flex items-center">
           <ul className="flex flex-nowrap px-1 gap-6 list-none">
             <HeaderMenuLinks />
@@ -69,7 +69,7 @@ export const Header = () => {
         </div>
       </div>
       <div className="block relative pt-20 sm:fixed sm:top-4 sm:right-14 sm:z-20 sm:pt-0">
-        {pathname === "/donate" && (
+        {pathname?.includes("/donate") && (
           <div className="flex px-5 flex-start sm:justify-end">
             <RainbowKitCustomConnectButton />
           </div>
