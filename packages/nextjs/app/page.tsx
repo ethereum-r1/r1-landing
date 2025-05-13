@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <div id="mainDiv" className="px-5 bg-[white] w-full">
+    <div id="mainDiv" className="px-0 sm:px-5 bg-[white] w-full">
       <div className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0 px-0">
         <div className="flex w-full justify-center">
           <div className="w-full pt-2 sm:w-[430px]">
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
                   <li className="list-disc mb-4">
                     100% donation-funded
                     <br />
-                    No token. No VC. No private sales. Just public ETH contributions. →{" "}
+                    No token. No VC. No private sales. Just public ETH contributions. *{" "}
                     <Link href="/donate" className="text-black border-b border-white hover:border-b hover:border-black">
                       Donate Now
                     </Link>
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
                 <li className="list-disc mb-4">
                   Developers
                   <br />
-                  Contribute to a credibly neutral rollup with no gatekeepers.
+                  Build a credibly neutral rollup — no gatekeepers.
                 </li>
                 <li className="list-disc mb-4">
                   App teams
@@ -67,9 +67,11 @@ const Home: NextPage = () => {
               Together, we build a rollup that belongs to Ethereum — not a foundation, not insiders, not even us.
             </p>
 
+            <div className="block w-full border-b-2 border-black border-dotted"></div>
+
             <div className="text-black  font-normal mt-4 space-y-1">
               <div className="flex">
-                <span className="mr-2">→</span>
+                <span className="mr-2">*</span>
                 <a
                   href="https://hackmd.io/@kzg/roadmapr1"
                   target="_blank"
@@ -80,7 +82,21 @@ const Home: NextPage = () => {
                 </a>
               </div>
               <div className="flex">
-                <span className="mr-2">→</span>
+                <span className="mr-2">*</span>
+                <a href="/donate" className="text-black border-b border-white hover:border-b hover:border-black">
+                      Donate Now
+                </a>&nbsp;/&nbsp;
+                <a
+                  href="https://twitter.com/intent/tweet?text=we+❤️+ethereum%0Awe+R1%0A@ethereumR1&url=https://ethereumr1.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black border-b border-white hover:border-b hover:border-black"
+                >
+                  Share
+                </a>
+              </div>
+               <div className="flex">
+                <span className="mr-2">*</span>
                 <a
                   href="https://github.com/ethereum-r1"
                   target="_blank"
@@ -106,17 +122,6 @@ const Home: NextPage = () => {
                   className="mx-1 text-black border-b border-white hover:border-b hover:border-black"
                 >
                   Telegram
-                </a>
-              </div>
-              <div className="flex">
-                <span className="mr-2">→</span>
-                <a
-                  href="https://twitter.com/intent/tweet?text=we+❤️+ethereum%0Awe+R1%0A@ethereumR1&url=https://ethereumr1.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black border-b border-white hover:border-b hover:border-black"
-                >
-                  Share the project
                 </a>
               </div>
             </div>
