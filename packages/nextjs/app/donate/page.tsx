@@ -7,7 +7,7 @@ import { useAccount, useWriteContract } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import EthDonations from "~~/contracts/EthDonations.json";
 
-export const Donate = () => {
+const Donate = () => {
   const [donations, setDonations] = useState<
     { eth_amount: string; from_address: string; from_name: string; tx_hash: string }[]
   >([]);
@@ -20,7 +20,7 @@ export const Donate = () => {
 
   const DONATION_ADDRESS_SEPOLIA = "0xA2126FF93Fb4D07ffa498b90558B08bE4CC7be01";
   const DONATION_ADDRESS_MAINNET = "0xE610E35d7C5a46384587da5125d63578993FD6D7";
-  const TARGET_CHAIN = process.env.NEXT_PUBLIC_ENVIRONMENT === 'development' ? sepolia : mainnet;
+  const TARGET_CHAIN = process.env.NEXT_PUBLIC_ENVIRONMENT === "development" ? sepolia : mainnet;
   const END_TIMESTAMP = 1756763999;
   const { address: connectedAddress, isConnected, chain } = useAccount();
   const [isPending, setIsPending] = useState(false);
@@ -62,12 +62,12 @@ export const Donate = () => {
       });
       // Prepare the contract call
       const { request } = await client.simulateContract({
-        address: TARGET_CHAIN === sepolia ? DONATION_ADDRESS_SEPOLIA : DONATION_ADDRESS_MAINNET as Address,
+        address: TARGET_CHAIN === sepolia ? DONATION_ADDRESS_SEPOLIA : (DONATION_ADDRESS_MAINNET as Address),
         abi: EthDonations.abi,
-        functionName: 'donate',
+        functionName: "donate",
         args: [],
         value: valueInEth,
-        account: connectedAddress
+        account: connectedAddress,
       });
 
       const hash = await writeContractAsync(request);
@@ -108,7 +108,7 @@ export const Donate = () => {
       const donations2 = await response2.json();
 
       const donations = [...donations1, ...donations2];
-      
+
       // Calculate total donations
       const totalDonations = donations.reduce((sum: number, donation: any) => {
         return sum + parseFloat(donation.eth_amount);
@@ -116,12 +116,15 @@ export const Donate = () => {
       setTotalDonations(totalDonations);
 
       // Combine donations from the same address
-      const donationsByAddress = new Map<string, { 
-        eth_amount: number,
-        from_address: string,
-        from_name: string,
-        tx_hash: string 
-      }>();
+      const donationsByAddress = new Map<
+        string,
+        {
+          eth_amount: number;
+          from_address: string;
+          from_name: string;
+          tx_hash: string;
+        }
+      >();
 
       for (const donation of donations) {
         const amount = parseFloat(donation.eth_amount);
@@ -133,7 +136,7 @@ export const Donate = () => {
             eth_amount: amount,
             from_address: donation.from_address,
             from_name: donation.from_name,
-            tx_hash: donation.tx_hash
+            tx_hash: donation.tx_hash,
           });
         }
       }
@@ -141,7 +144,7 @@ export const Donate = () => {
       // Convert back to array and convert amounts to strings
       const combinedDonations = Array.from(donationsByAddress.values()).map(donation => ({
         ...donation,
-        eth_amount: donation.eth_amount.toString()
+        eth_amount: donation.eth_amount.toString(),
       }));
 
       // Clean up trailing zeros
@@ -187,7 +190,7 @@ export const Donate = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0"
+      className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0 px-5"
       style={{ lineHeight: "133%" }}
     >
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
@@ -232,7 +235,11 @@ export const Donate = () => {
                 <div className="text-green-500  mt-2">
                   Tx submitted! Thank you for your donation.{" "}
                   <a
-                    href={TARGET_CHAIN === sepolia ? `https://sepolia.etherscan.io/tx/${txHash}` : `https://etherscan.io/tx/${txHash}`}
+                    href={
+                      TARGET_CHAIN === sepolia
+                        ? `https://sepolia.etherscan.io/tx/${txHash}`
+                        : `https://etherscan.io/tx/${txHash}`
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-green-500 underline transition-all hover:scale-105"
@@ -270,26 +277,29 @@ export const Donate = () => {
           </p>
           <div className="block w-full border-b-2 border-black border-dotted"></div>
           <br></br>
-          {<div className="font-mono text-black mb-8">
-            <div className="text-sm mb-1">
-              Donation Progress... {Math.min(100, (totalDonations / 1000) * 100).toFixed(2)}%
-            </div>
-            <div className="border border-black p-1">
-              <div className="flex items-center">
-                <div className="flex-1 bg-white">
-                  <div 
-                    className="h-6 bg-black" 
-                    style={{
-                      width: `${Math.min(100, (totalDonations / 1000) * 100)}%`
-                    }}
-                  />
+          {
+            <div className="font-mono text-black mb-8">
+              <div className="text-sm mb-1">
+                Donation Progress... {Math.min(100, (totalDonations / 1000) * 100).toFixed(2)}%
+              </div>
+              <div className="border border-black p-1">
+                <div className="flex items-center">
+                  <div className="flex-1 bg-white">
+                    <div
+                      className="h-6 bg-black"
+                      style={{
+                        width: `${Math.min(100, (totalDonations / 1000) * 100)}%`,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
+              <div className="text-sm mt-1">
+                {totalDonations >= 1000 ? "1000" : totalDonations.toFixed(2)} / 1000 ETH received. Time left:{" "}
+                {Math.floor((END_TIMESTAMP - new Date().getTime() / 1000) / (60 * 60 * 24))} days
+              </div>
             </div>
-            <div className="text-sm mt-1">
-            {totalDonations >= 1000 ? "1000" : totalDonations.toFixed(2)} / 1000 ETH received. Time left: {Math.floor((END_TIMESTAMP - new Date().getTime() / 1000) / (60 * 60 * 24))} days
-            </div>
-          </div>}
+          }
           <div className="flex flex-col w-full">
             <div className="flex w-full items-center">
               <div className="w-1/2 text-black ">Donation Address</div>
@@ -335,3 +345,5 @@ export const Donate = () => {
     </div>
   );
 };
+
+export default Donate;
