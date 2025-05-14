@@ -18,7 +18,7 @@ const titleTemplate = "%s | Stealth Transfer";
 export const getMetadata = ({
   title,
   description,
-  imageRelativePath = "thumbnail.jpg", // Remove leading slash for IPFS compatibility
+  imageRelativePath = "./thumbnail.jpg", // Remove leading slash for IPFS compatibility
   icons,
 }: {
   title: string;
