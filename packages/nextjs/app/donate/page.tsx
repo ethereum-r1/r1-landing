@@ -190,8 +190,8 @@ const Donate = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0 px-5"
-      style={{ lineHeight: "133%" }}
+      className="flex flex-col items-center justify-start bg-[white] w-full max-w-5xl mx-auto py-0 px-0 sm:px-5"
+      style={{ lineHeight: "140%" }}
     >
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
         <div className="w-full pt-2 sm:w-[430px]">

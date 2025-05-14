@@ -7,18 +7,39 @@ import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useAppContext } from "~~/contexts/AppContext";
 
 type HeaderMenuLink = {
-  label: string;
+  label: React.ReactNode;
   href: string;
   icon?: React.ReactNode;
 };
 
+const PulsingAsterisk = () => {
+  const [visible, setVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(v => !v);
+    }, 750);
+    return () => clearInterval(interval);
+  }, []);
+
+  return <span style={{ visibility: visible ? "visible" : "hidden" }}>*</span>;
+};
+
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Ethereum R1",
+    label: (
+      <span className="nav-item">
+        Ethereum R1
+      </span>
+    ),
     href: "/",
   },
   {
-    label: "Donate",
+    label: (
+      <>
+        <PulsingAsterisk /> <span className="nav-item">Donate</span> 
+      </>
+    ),
     href: "/donate",
   },
 ];
@@ -32,12 +53,12 @@ export const HeaderMenuLinks = () => {
           <li key={href} className="list-none">
             <Link
               href={href}
-              className={`relative text-black bg-transparent outline-none focus:outline-none focus:bg-transparent active:bg-transparent hover:bg-transparent hover:border-b border-black p-0 transform transition-transform ${
-                pathname === href ? "border-b border-black" : ""
+              className={`relative text-black bg-transparent outline-none focus:outline-none focus:bg-transparent active:bg-transparent hover:bg-transparent border-black p-0 transform transition-transform ${
+                pathname === href || (href !== "/" && pathname.startsWith(href)) ? "active" : ""
               }`}
             >
               {icon}
-              <span>{label}</span>
+              {label}
             </Link>
           </li>
         );
