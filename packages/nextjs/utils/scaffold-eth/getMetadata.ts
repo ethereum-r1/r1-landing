@@ -61,7 +61,8 @@ export const getMetadata = ({
     description: description,
     images: [
       {
-        url: imageUrl,
+        // url: imageUrl,
+        url: ipfsPath("thumbnail.jpg"), 
       },
     ],
   };
@@ -72,7 +73,7 @@ export const getMetadata = ({
       template: titleTemplate,
     },
     description: description,
-    images: [imageUrl],
+    images: [ipfsPath("thumbnail.jpg")],
   };
   
   // Handle icons with IPFS-compatible paths
