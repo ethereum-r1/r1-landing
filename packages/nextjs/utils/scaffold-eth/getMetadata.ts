@@ -26,14 +26,10 @@ export const getMetadata = ({
   imageRelativePath?: string;
   icons?: { icon?: string | { url: string; sizes?: string; type?: string }[] };
 }): Metadata => {
-  // Temp fix for OG image URL
-  const imageUrl = "https://ethereumr1.org/thumbnail.jpg";
-
   // For IPFS, we use relative paths without the baseUrl prefix
-
-  // const imageUrl = isIpfsBuild 
-  //   ? ipfsPath(imageRelativePath) 
-  //   : `${baseUrl}/${imageRelativePath.replace(/^\//, '')}`;
+  const imageUrl = isIpfsBuild 
+    ? ipfsPath(imageRelativePath) 
+    : `${baseUrl}/${imageRelativePath.replace(/^\//, '')}`;
 
   // Base metadata object
   const metadata: Metadata = {
@@ -65,7 +61,8 @@ export const getMetadata = ({
     description: description,
     images: [
       {
-        url: imageUrl,
+        // url: imageUrl,
+        url: ipfsPath("thumbnail.jpg"), 
       },
     ],
   };
@@ -76,7 +73,7 @@ export const getMetadata = ({
       template: titleTemplate,
     },
     description: description,
-    images: [imageUrl],
+    images: [ipfsPath("thumbnail.jpg")],
   };
   
   // Handle icons with IPFS-compatible paths
