@@ -31,6 +31,8 @@ export const getMetadata = ({
     ? ipfsPath(imageRelativePath) 
     : `${baseUrl}/${imageRelativePath.replace(/^\//, '')}`;
 
+  const ogimageURL = "https://ethereumr1.org/thumbnail1.jpg"
+
   // Base metadata object
   const metadata: Metadata = {
     title: {
@@ -61,8 +63,7 @@ export const getMetadata = ({
     description: description,
     images: [
       {
-        // url: imageUrl,
-        url: ipfsPath("thumbnail.jpg"), 
+        url: ogimageURL,
       },
     ],
   };
@@ -73,7 +74,7 @@ export const getMetadata = ({
       template: titleTemplate,
     },
     description: description,
-    images: [ipfsPath("thumbnail.jpg")],
+    images: [ogimageURL],
   };
   
   // Handle icons with IPFS-compatible paths
