@@ -94,16 +94,17 @@ const Donate = () => {
       if (!response1.ok) {
         throw new Error("Failed to fetch donations");
       }
-      const donations1 = await response1.json();
+      const donations = await response1.json();
 
-      // for dev: fetch("/api/transfers")
-      const response2 = await fetch("https://0000000000.org/transfers");
-      if (!response2.ok) {
-        throw new Error("Failed to fetch donations");
-      }
-      const donations2 = await response2.json();
+      // NOTE: removed becase now all transfers were donated
+      // // for dev: fetch("/api/transfers")
+      // const response2 = await fetch("https://0000000000.org/transfers");
+      // if (!response2.ok) {
+      //   throw new Error("Failed to fetch donations");
+      // }
+      // const donations2 = await response2.json();
 
-      const donations = [...donations1, ...donations2];
+      // const donations = [...donations1, ...donations2];
 
       // Calculate total donations
       const totalDonations = donations.reduce((sum: number, donation: any) => {
@@ -199,7 +200,7 @@ const Donate = () => {
             <div className="mt-4">
               {!isConnected ? (
                 <div className="w-full">
-                  <RainbowKitCustomConnectButton buttonText="Connect to Donate" />
+                  <RainbowKitCustomConnectButton buttonText="Connect to Claim Donation" />
                 </div>
               ) : (
                 <button
