@@ -1,11 +1,169 @@
 {
   "abi": [
     {
-      "inputs": [],
-      "name": "donate",
+      "inputs": [
+        { "internalType": "uint256", "name": "_donationsGoal", "type": "uint256" },
+        { "internalType": "uint256", "name": "_donationsEndTime", "type": "uint256" },
+        { "internalType": "address", "name": "_owner", "type": "address" }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    { "inputs": [], "name": "AlreadyInitialized", "type": "error" },
+    { "inputs": [], "name": "AmountMismatch", "type": "error" },
+    { "inputs": [], "name": "DonationsAlreadyClaimed", "type": "error" },
+    { "inputs": [], "name": "DonationsAlreadyQueued", "type": "error" },
+    { "inputs": [], "name": "DonationsEnded", "type": "error" },
+    { "inputs": [], "name": "DonationsGoalNotReached", "type": "error" },
+    { "inputs": [], "name": "DonationsGoalReached", "type": "error" },
+    { "inputs": [], "name": "DonationsNotClaimable", "type": "error" },
+    { "inputs": [], "name": "DonationsNotEnded", "type": "error" },
+    { "inputs": [], "name": "DonationsNotQueued", "type": "error" },
+    { "inputs": [], "name": "LengthMismatch", "type": "error" },
+    { "inputs": [], "name": "NewOwnerIsZeroAddress", "type": "error" },
+    { "inputs": [], "name": "NoDonation", "type": "error" },
+    { "inputs": [], "name": "NoHandoverRequest", "type": "error" },
+    { "inputs": [], "name": "TransferFailed", "type": "error" },
+    { "inputs": [], "name": "Unauthorized", "type": "error" },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "internalType": "address", "name": "donor", "type": "address" },
+        { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+      ],
+      "name": "Donation",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [{ "indexed": true, "internalType": "address", "name": "pendingOwner", "type": "address" }],
+      "name": "OwnershipHandoverCanceled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [{ "indexed": true, "internalType": "address", "name": "pendingOwner", "type": "address" }],
+      "name": "OwnershipHandoverRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        { "indexed": true, "internalType": "address", "name": "oldOwner", "type": "address" },
+        { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    { "stateMutability": "payable", "type": "fallback" },
+    {
+      "inputs": [
+        { "internalType": "address[]", "name": "donors", "type": "address[]" },
+        { "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }
+      ],
+      "name": "addDonationsFor",
       "outputs": [],
       "stateMutability": "payable",
       "type": "function"
-    }
+    },
+    {
+      "inputs": [],
+      "name": "cancelOwnershipHandover",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "recipient", "type": "address" }],
+      "name": "claim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "claimTimestamp",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "pendingOwner", "type": "address" }],
+      "name": "completeOwnershipHandover",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    { "inputs": [], "name": "donate", "outputs": [], "stateMutability": "payable", "type": "function" },
+    {
+      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "name": "donations",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "donationsEndTime",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "donationsGoal",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "donationsTotal",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [{ "internalType": "address", "name": "result", "type": "address" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "pendingOwner", "type": "address" }],
+      "name": "ownershipHandoverExpiresAt",
+      "outputs": [{ "internalType": "uint256", "name": "result", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    { "inputs": [], "name": "queueClaim", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "payable", "type": "function" },
+    {
+      "inputs": [],
+      "name": "requestOwnershipHandover",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "token", "type": "address" },
+        { "internalType": "address", "name": "recipient", "type": "address" }
+      ],
+      "name": "rescueToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    { "inputs": [], "name": "returnDonation", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    {
+      "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    { "stateMutability": "payable", "type": "receive" }
   ]
 }
