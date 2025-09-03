@@ -200,7 +200,7 @@ const Donate = () => {
             <div className="mt-4">
               {!isConnected ? (
                 <div className="w-full">
-                  <RainbowKitCustomConnectButton buttonText="Connect to Donate" />
+                  <RainbowKitCustomConnectButton buttonText="Connect to Claim Donation" />
                 </div>
               ) : (
                 <button
