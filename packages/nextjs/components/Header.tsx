@@ -37,7 +37,8 @@ export const menuLinks: HeaderMenuLink[] = [
   {
     label: (
       <>
-        <PulsingAsterisk /> <span className="nav-item">Donate</span> 
+        <PulsingAsterisk /> <span className="nav-item">Reclaim
+        Donation</span> 
       </>
     ),
     href: "/donate",
