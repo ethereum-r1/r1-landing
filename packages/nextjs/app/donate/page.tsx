@@ -47,13 +47,12 @@ const Donate = () => {
     }
   };
 
-  const handleDonate = async () => {
-    if (!isConnected || !donationAmount || amountError) return;
+  const handleReturnDonation = async () => {
+    if (!isConnected  || amountError) return;
 
     try {
       setIsPending(true);
       // Convert the ETH amount to wei
-      const valueInEth = parseEther(donationAmount);
 
       // Create a client for the current network
       const client = createPublicClient({
@@ -64,16 +63,13 @@ const Donate = () => {
       const { request } = await client.simulateContract({
         address: TARGET_CHAIN === sepolia ? DONATION_ADDRESS_SEPOLIA : (DONATION_ADDRESS_MAINNET as Address),
         abi: EthDonations.abi,
-        functionName: "donate",
-        args: [],
-        value: valueInEth,
+        functionName: "returnDonation",
         account: connectedAddress,
       });
 
       const hash = await writeContractAsync(request);
       console.log("donation hash", hash);
       // Clear input after successful transaction
-      setDonationAmount("");
       // The data parameter is the transaction hash
       setTxHash(hash);
       setIsPending(false);
@@ -195,27 +191,11 @@ const Donate = () => {
     >
       <div className="flex w-full justify-center" /*style={{ gap: '80px' }}*/>
         <div className="w-full pt-2 sm:w-[430px]">
-          <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1 is powered by you.</h1>
+          <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1 was powered by you.</h1>
           <p className="text-black  font-normal mb-6">
-            Donate below to the donation smart contract on Ethereum Mainnet, only accepts native ETH.
+          Reclaim your donation below from the smart contract on Ethereum Mainnet.
           </p>
           <div className="mb-6">
-            <div className="mb-2">
-              <label htmlFor="donationAmount" className="block text-black  mb-1">
-                Donation Amount (ETH)
-              </label>
-              <div className="relative">
-                <input
-                  id="donationAmount"
-                  type="text"
-                  value={donationAmount}
-                  onChange={handleAmountChange}
-                  placeholder="0.00"
-                  className={`w-full p-2  bg-white border ${amountError ? "border-red-500" : "border-gray-300"} rounded-none focus:outline-none`}
-                />
-                {amountError && <div className="text-red-500 text-[10px] mt-1">{amountError}</div>}
-              </div>
-            </div>
             <div className="mt-4">
               {!isConnected ? (
                 <div className="w-full">
@@ -223,17 +203,17 @@ const Donate = () => {
                 </div>
               ) : (
                 <button
-                  onClick={handleDonate}
-                  disabled={!!amountError || !donationAmount || !isConnected || isPending || TARGET_CHAIN != chain}
+                  onClick={handleReturnDonation}
+                  disabled={!isConnected || isPending || TARGET_CHAIN != chain}
                   className="btn btn-primary shadow-none btn-sm min-w-[180px]"
                 >
-                  {TARGET_CHAIN != chain ? "Wrong Network" : isPending ? "Confirming..." : "Donate"}
+                  {TARGET_CHAIN != chain ? "Wrong Network" : isPending ? "Confirming..." : "Reclaim Your Donation"}
                 </button>
               )}
               {isPending && <div className="text-blue-500  mt-2">Tx pending...</div>}
               {isSuccess && (
                 <div className="text-green-500  mt-2">
-                  Tx submitted! Thank you for your donation.{" "}
+                  Tx submitted!{" "}
                   <a
                     href={
                       TARGET_CHAIN === sepolia
@@ -267,37 +247,43 @@ const Donate = () => {
               {isError && <div className="text-red-500  mt-2">Tx failed. Please try again.</div>}
             </div>
           </div>
+          
           <p className="text-black  font-normal mb-4">
-            This project exists thanks to the generosity of the Ethereum community. There’s no token, no foundation, no
-            VC — just ETH from those who believe public infrastructure should remain public. Thank you.
+          Dear Ethereum Community,
           </p>
           <p className="text-black  font-normal mb-4">
-            Below, we list all donors (by amount) with deep gratitude. Your support isn’t just funding code — it’s
-            backing a future where rollups stay credibly neutral.
+          Ethereum R1 was powered by you. Thank you for your generous donations to our smart contract on Ethereum Mainnet.
+This project existed thanks to the generosity of the Ethereum community. There’s no token, no foundation, no VC, just ETH from those who believe public infrastructure should remain public.
+Unfortunately, we didn’t achieve our goal of 1000 ETH, so we are now refunding all donations. We are grateful for your belief in us and thank you for your support.
           </p>
-          <div className="block w-full border-b-2 border-black border-dotted"></div>
+          
+         <p className="text-black  font-normal mb-4">
+         The funds are still in the smart contract and can be claimed through our claim UI now or directly on Etherscan.
+         How to Claim Your Refund on Etherscan:
+         </p>
+         <p className="text-black  font-normal mb-4 overflow-x-hidden" >
+         <b>1.  Go to the donation contract on Etherscan: <a href="https://etherscan.io/address/0xe610e35d7c5a46384587da5125d63578993fd6d7#writeContract" target="_blank" rel="noopener noreferrer" className="text-black underline">https://etherscan.io/0xe6...d6d7#writeContract </a></b>
+         </p>
+         <p className="text-black  font-normal mb-4">
+         <b>2.  Connect your wallet (Click “Connect to Web3”).</b>
+         </p>
+         <p className="text-black  font-normal mb-4">
+         <b>3.  Click “Write” on the returnDonation() method.</b>
+         </p>
+         <p className="text-black  font-normal mb-4">
+         To check if your wallet has a donation, use the Read methods and query donations ({"<your address>"}).
+         </p>
+         <p className="text-black  font-normal mb-4">
+         Below, we list all donors (by amount) with deep gratitude. Your support wasn’t just funding code, it was backing a future where rollups stay credibly neutral.
+         </p>
+
+         <div className="block w-full border-b-2 border-black border-dotted"></div>
           <br></br>
           {
             <div className="font-mono text-black mb-8">
-              <div className="text-sm mb-1">
-                Donation Progress... {Math.min(100, (totalDonations / 1000) * 100).toFixed(2)}%
-              </div>
-              <div className="border border-black p-1">
-                <div className="flex items-center">
-                  <div className="flex-1 bg-white">
-                    <div
-                      className="h-6 bg-black"
-                      style={{
-                        width: `${Math.min(100, (totalDonations / 1000) * 100)}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
+              
               <div className="text-sm mt-1">
-                {totalDonations >= 1000 ? "1000" : totalDonations.toFixed(2)} / 1000 ETH received. Time left:{" "}
-                {Math.floor((END_TIMESTAMP - new Date().getTime() / 1000) / (60 * 60 * 24))} days
-              </div>
+                {totalDonations >= 1000 ? "1000" : totalDonations.toFixed(2)} / 1000 ETH received. </div>
             </div>
           }
           <div className="flex flex-col w-full">

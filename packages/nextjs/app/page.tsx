@@ -11,7 +11,7 @@ const Home: NextPage = () => {
           <div className="w-full pt-2 sm:w-[430px]">
             <h1 className="text-black  font-normal leading-none mb-4">Ethereum R1</h1>
             <p className="text-black  font-normal mb-4">
-              is a new rollup project grounded in the core values of Ethereum:
+              was a new rollup project grounded in the core values of Ethereum:
             </p>
             <div className="text-black mb-4 space-y-4">
               <div className="space-y-4">
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
                     <br />
                     No token. No VC. No private sales. Just public ETH contributions. *{" "}
                     <Link href="/donate" className="text-black border-b border-white hover:border-b hover:border-black">
-                      Donate Now
+                    Reclaim Donation
                     </Link>
                   </li>
                   <li className="list-disc mb-4">
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
               <div className="flex">
                 <span className="mr-2">*</span>
                 <a href="/donate" className="text-black border-b border-white hover:border-b hover:border-black">
-                      Donate Now
+                Reclaim Donation
                 </a>&nbsp;/&nbsp;
                 <a
                   href="https://twitter.com/intent/tweet?text=we+❤️+ethereum%0Awe+R1%0A@ethereumR1&url=https://ethereumr1.org"
